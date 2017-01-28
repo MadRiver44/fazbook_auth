@@ -18,7 +18,7 @@ init();
 passport.use(new LocalStrategy(options, (username, password, done) => {
   // check to see if username exists, using sequelize method findAll
   // go into the column username and find the name passed
-  models.User.findAll({
+  models.User.findAll({ // findAll returns an array
     where: {
       username
     }

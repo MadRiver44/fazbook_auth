@@ -1,5 +1,6 @@
 1. copy fazbook_auth_development to folder outside of WDI
 2. npm install to add the neccessary dependencies
+2a. check node modules for the dependencies - bcrypt, passport, passport-local, bcryptjs, dotenv,express-session
 3. npm start -- won't work! we have app work to do
 4. Start a Git Repo
 5. git init

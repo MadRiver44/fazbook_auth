@@ -15,3 +15,31 @@ this is our compare password func
 function comparePass(userPassword, dataPassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
 }
+
+function loginRedirect(req, res, next) {
+  if(req.user) {
+    return res.status(401).json(
+      { status: 'You are already logged in' }
+    );
+    return next;
+  }
+}
+// dreate user middleware
+// we create the user and encrypt the password
+// we user properties are passed to the database
+function createUser(req, res) {
+  const salt = bcyrpt.genSaltSync();
+  const hash = bcyrpt.hashSync(req.body.password, salt);
+
+  return models.User.create({
+    username: req.body.username,
+    password: hash,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    dob: req.body.dob
+  })
+    .then(() => {
+      res.redirect('/');
+    });
+}

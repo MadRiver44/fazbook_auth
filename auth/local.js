@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const init = require('./passport');
 const models = require('../db/models/index');
-const authHelpers = require('../auth/auth-helpers') // ? right path??
+const authHelpers = require('../auth/auth-helpers')
 
 const options = {}
 
@@ -39,6 +39,6 @@ passport.use(new LocalStrategy(options, (username, password, done) => {
       .catch((err) => {
         return done(err);
       });
-}))
+}));
 
 module.exports = passport;

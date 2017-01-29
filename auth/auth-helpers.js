@@ -5,31 +5,30 @@
 // require bcrypt and models to allow for their module
 // functionality to be used in this module
 const bcrypt = require('bcryptjs');
-const models = require('../models/index');
+const models = require('../db/models/index');
 
 /*
 this is our compare password func
  we use the bcrypt object method compareSync to compare what we
  pass in as a password and check against our database password
 */
-function comparePass(userPassword, dataPassword) {
+function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
 }
 
 function loginRedirect(req, res, next) {
-  if(req.user) {
-    return res.status(401).json(
+  if(req.user) return res.status(401).json(
       { status: 'You are already logged in' }
     );
-    return next;
-  }
+    return next();
 }
+
 // dreate user middleware
 // we create the user and encrypt the password
 // we user properties are passed to the database
 function createUser(req, res) {
-  const salt = bcyrpt.genSaltSync();
-  const hash = bcyrpt.hashSync(req.body.password, salt);
+  const salt = bcrypt.genSaltSync();
+  const hash = bcrypt.hashSync(req.body.password, salt);
 
   return models.User.create({
     username: req.body.username,

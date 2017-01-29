@@ -7,7 +7,7 @@
 
 const passport = require('passport');
 //1. '.' go out of this file 2'.' go out of this folder 3. go into folder db 4. go into models 5. go into idex.js
-const models = require('..db/models/index');
+const models = require('../db/models/index');
 
 
 // what is done(null, user.id)
@@ -16,7 +16,7 @@ module.exports = () => {
     done(null, user.id)
   });
 // what is done(null, user)
-  passport.deserializUser((id, done) => {
+  passport.deserializeUser((id, done) => {
     models.User.findById(id)
       .then((user) => {
         done(null, user);

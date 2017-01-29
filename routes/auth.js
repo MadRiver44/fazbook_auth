@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authHelpers = require('..auth/auth-Helpers');
+const authHelpers = require('../auth/auth-helpers');
 const passport = require('../auth/local');
 
 // on this route '/register' callback is authHelpers module method loginRedirect
@@ -13,7 +13,7 @@ router.get('/register', authHelpers.loginRedirect, (req, res) => {
 
 router.post('/register', (req, res, next) => {
   return authHelpers.createUser(req, res)
-    .then((res) => {
+    .then((response) => {
       console.log('registration successful');
     })
       .catch((err) =>{
@@ -37,7 +37,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
   req.logout();
-  req.redirect('/');
+  res.redirect('/');
 });
 
 module.exports = router;
